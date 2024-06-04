@@ -36,6 +36,8 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('auth/', include('authentication.urls')),
     path('coin/', include('coinmarketcap.urls')),
+    path('client/', include('client.urls')),
+    path('keyword/', include('keywords.urls')),
 
     path('swagger(<format>.json|.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
