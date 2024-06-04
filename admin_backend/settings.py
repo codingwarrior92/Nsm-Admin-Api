@@ -48,7 +48,9 @@ INSTALLED_APPS = [
     'drf_yasg',
     'corsheaders',
     'authentication',
-    'coinmarketcap'
+    'coinmarketcap',
+    'client',
+    'keywords',
 ]
 
 MIDDLEWARE = [
