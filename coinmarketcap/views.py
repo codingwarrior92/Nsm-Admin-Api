@@ -24,7 +24,7 @@ class CryptocurrencyInfo(APIView):
             403: openapi.Response('Forbidden'),
         }
     )
-    def post(self, request, user_id, format=None):
+    def post(self, request, format=None):
         data = request.data # holds username and password (in dictionary)
         url = 'https://pro-api.coinmarketcap.com/v2/cryptocurrency/info'
         parameters = {
@@ -96,52 +96,52 @@ class CryptocurrencyInfo(APIView):
 #         except (ConnectionError, Timeout, TooManyRedirects) as e:
 #             return Response({"type": "failure", "detail": e}, status=status.HTTP_403_FORBIDDEN)
         
-# class CryptocurrencyCategories(APIView):
-#     @swagger_auto_schema(
-#         request_body=openapi.Schema(
-#             type=openapi.TYPE_OBJECT,
-#             properties={
-#                 'start': openapi.Schema(type=openapi.TYPE_INTEGER),
-#                 'limit': openapi.Schema(type=openapi.TYPE_INTEGER),
-#                 'id': openapi.Schema(type=openapi.TYPE_STRING),
-#                 'slug': openapi.Schema(type=openapi.TYPE_STRING),
-#                 'symbol': openapi.Schema(type=openapi.TYPE_STRING),
-#             },
-#         ),
-#         responses={
-#             200: openapi.Response('OK'),
-#             400: openapi.Response('Bad Request'),
-#             403: openapi.Response('Forbidden'),
-#         }
-#     )
-#     def post(self, request, user_id, format=None):
-#         data = request.data # holds username and password (in dictionary)
-#         url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/categories'
-#         parameters = {
-#             # 'listing_status': data['listing_status'],
-#             'start': data['start'],
-#             'limit': data['limit'],
-#             # 'slug': data['slug'],
-#             # 'aux': data['aux'],
-#         }
-#         headers = {
-#             'Accepts': 'application/json',
-#             'X-CMC_PRO_API_KEY': settings.COINMARKET_API_KEY,
-#         }
+class CryptocurrencyCategories(APIView):
+    @swagger_auto_schema(
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'start': openapi.Schema(type=openapi.TYPE_INTEGER, default='1'),
+                'limit': openapi.Schema(type=openapi.TYPE_INTEGER, default='5000'),
+                'id': openapi.Schema(type=openapi.TYPE_STRING),
+                'slug': openapi.Schema(type=openapi.TYPE_STRING),
+                'symbol': openapi.Schema(type=openapi.TYPE_STRING),
+            },
+        ),
+        responses={
+            200: openapi.Response('OK'),
+            400: openapi.Response('Bad Request'),
+            403: openapi.Response('Forbidden'),
+        }
+    )
+    def post(self, request, format=None):
+        data = request.data # holds username and password (in dictionary)
+        url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/categories'
+        parameters = {
+            # 'listing_status': data['listing_status'],
+            'start': data['start'],
+            'limit': data['limit'],
+            # 'slug': data['slug'],
+            # 'aux': data['aux'],
+        }
+        headers = {
+            'Accepts': 'application/json',
+            'X-CMC_PRO_API_KEY': settings.COINMARKET_API_KEY,
+        }
 
-#         session = Session()
-#         session.headers.update(headers)
+        session = Session()
+        session.headers.update(headers)
 
-#         try:
-#             response = session.get(url, params=parameters)
-#             data = json.loads(response.text)
-#             print (data)
-#             if data['status']['error_code'] == 400:
-#                 return Response({'type':'failure', 'error_message': data['status']['error_message']}, status=status.HTTP_400_BAD_REQUEST)
-#             else:
-#                 return Response({'type':'success', 'data': data}, status=status.HTTP_200_OK)
-#         except (ConnectionError, Timeout, TooManyRedirects) as e:
-#             return Response({"type": "failure", "detail": e}, status=status.HTTP_403_FORBIDDEN)
+        try:
+            response = session.get(url, params=parameters)
+            data = json.loads(response.text)
+            print (data)
+            if data['status']['error_code'] == 400:
+                return Response({'type':'failure', 'error_message': data['status']['error_message']}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response({'type':'success', 'data': data}, status=status.HTTP_200_OK)
+        except (ConnectionError, Timeout, TooManyRedirects) as e:
+            return Response({"type": "failure", "detail": e}, status=status.HTTP_403_FORBIDDEN)
         
 class CryptocurrencyCategory(APIView):
     @swagger_auto_schema(
@@ -159,7 +159,7 @@ class CryptocurrencyCategory(APIView):
             403: openapi.Response('Forbidden'),
         }
     )
-    def post(self, request, user_id, format=None):
+    def post(self, request, format=None):
         data = request.data # holds username and password (in dictionary)
         url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/category'
         parameters = {
