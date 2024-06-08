@@ -130,8 +130,8 @@ class CryptocurrencyInfo(APIView):
 #             'X-CMC_PRO_API_KEY': settings.COINMARKET_API_KEY,
 #         }
 
-#         session = Session()
-#         session.headers.update(headers)
+        session = Session()
+        session.headers.update(headers)
 
 #         try:
 #             response = session.get(url, params=parameters)
