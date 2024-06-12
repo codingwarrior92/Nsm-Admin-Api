@@ -3,6 +3,6 @@ from django.db import models
 # Create your models here.
 
 class Crypto(models.Model):
-    coin_id = models.IntegerField()
+    coin_id = models.CharField(max_length=255)
     class Meta:
         db_table = 'crypto'

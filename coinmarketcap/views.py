@@ -34,7 +34,7 @@ class CryptocurrencyInfo(APIView):
         }
         headers = {
             'Accepts': 'application/json',
-            'X-CMC_PRO_API_KEY': settings.COINMARKET_API_KEY,
+            'X-CMC_PRO_API_KEY': settings.COINRANKING_API_KEY,
         }
 
         session = Session()
@@ -147,7 +147,7 @@ class CryptocurrencyInfo(APIView):
 class GetParametersSerializer(serializers.Serializer):
     start = serializers.IntegerField(help_text="Start index for pagination")
     limit = serializers.IntegerField(help_text="Number of results to return")
-
+    keyword = serializers.CharField(required=False, default='')
 class CryptocurrencyCategory(APIView):
     # Apply the swagger_auto_schema decorator without specifying the method
     @swagger_auto_schema(query_serializer=GetParametersSerializer())
@@ -157,15 +157,22 @@ class CryptocurrencyCategory(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         data = serializer.validated_data
-        url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/category'
+        # url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/category'
+        url = 'https://api.coinranking.com/v2/coins'
         parameters = {
-            'id': '6051a82566fc1b42617d6dc6',
-            'start': data['start'],
+            # 'id': '6051a82566fc1b42617d6dc6',
+            # 'start': data['start'],
+            # 'limit': data['limit'],
+            'offset': data['start'],
             'limit': data['limit'],
+            'tags': 'meme',
+            'orderBy': 'marketCap',
+            'search': data['keyword']
         }
         headers = {
-            'Accept': 'application/json',
-            'X-CMC_PRO_API_KEY': settings.COINMARKET_API_KEY,
+            # 'Accept': 'application/json',
+            # 'X-CMC_PRO_API_KEY': settings.COINRANKING_API_KEY,
+            'x-access-token': settings.COINRANKING_API_KEY,
         }
 
         session = Session()
@@ -174,7 +181,8 @@ class CryptocurrencyCategory(APIView):
         try:
             response = session.get(url, params=parameters)
             data = json.loads(response.text)
-            if data.get('status', {}).get('error_code') == 400:
+            print(data)
+            if data.get('status', {}) == 'fail':
                 return Response({'type': 'failure', 'error_message': data['status']['error_message']}, status=status.HTTP_400_BAD_REQUEST)
             else:
                 return Response(data, status=status.HTTP_200_OK)
@@ -188,7 +196,7 @@ class UpdateCryptocurrency(APIView):
             type=openapi.TYPE_OBJECT,
             required=['coin_id'],
             properties={
-                'coin_id': openapi.Schema(type=openapi.TYPE_INTEGER),
+                'coin_id': openapi.Schema(type=openapi.TYPE_STRING),
             },
         ),
         responses={

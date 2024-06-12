@@ -169,4 +169,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-COINMARKET_API_KEY = '78f2b20b-308e-4236-b4af-617320739974'
+# COINMARKET_API_KEY = '78f2b20b-308e-4236-b4af-617320739974'
+COINRANKING_API_KEY = 'coinranking192ef659117562f2c7c590073f81fa3376754cc262264a52'
