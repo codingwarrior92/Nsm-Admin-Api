@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_yasg',
+    'celery',
     'corsheaders',
     'authentication',
     'coinmarketcap',
@@ -92,9 +93,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'nsm',
         'USER': 'postgres',
-        #'PASSWORD': '123123',
-        'PASSWORD': '!QAZxsw2!',
-        'HOST': '127.0.0.1',
+        'PASSWORD': '123123',
+        # 'PASSWORD': '!QAZxsw2!',
+        'HOST': '192.168.12.7',
         'PORT': '5432',
     }
 }
@@ -171,3 +172,9 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # COINMARKET_API_KEY = '78f2b20b-308e-4236-b4af-617320739974'
 COINRANKING_API_KEY = 'coinranking192ef659117562f2c7c590073f81fa3376754cc262264a52'
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
