@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-9iv020f7qzrxyb91oot2_ai_tbdw6(qm+6g8l36lw$i2=*$sv#
 DEBUG = True
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.244.132']
 CORS_ALLOWED_ORIGINS = [
     # Add the origins from which your React project will make requests
     'http://localhost:3000',  # Example: if your React app runs on http://localhost:3000
@@ -93,9 +93,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'nsm',
         'USER': 'postgres',
-        'PASSWORD': '123123',
-        # 'PASSWORD': '!QAZxsw2!',
-        'HOST': '192.168.12.7',
+        # 'PASSWORD': '123123',
+        'PASSWORD': '!QAZxsw2!',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }

@@ -9,16 +9,16 @@ class Crypto(models.Model):
 
 class CoinProfile(models.Model):
     coin_id = models.CharField(max_length=255)
-    balance = models.CharField(max_length=255)
-    twitter_followers = models.IntegerField(default=0)
-    tg_subscribers = models.IntegerField(default=0)
+    price = models.CharField(max_length=255)
+    weburl = models.CharField(default='', max_length=255)
+    twitter = models.CharField(default='', max_length=255)
+    telegram = models.CharField(default='',max_length=255)
     class Meta:
         db_table = 'coin_profile'
 
-class CoinHistorical(models.Model):
+class CoinPriceHistorical(models.Model):
     coin_id = models.CharField(max_length=255)
-    balance = models.CharField(max_length=255)
-    twitter_followers = models.IntegerField(default=0)
-    tg_subscribers = models.IntegerField(default=0)
+    price = models.CharField(max_length=255, null=True)
+    timestamp = models.IntegerField(default=0)
     class Meta:
-        db_table = 'coin_historical'
+        db_table = 'coin_price_historical'
